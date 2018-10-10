@@ -1,0 +1,73 @@
+---
+- hosts: all
+  tasks:
+    - name: install require packages
+      become: yes
+      apt: name={{item}} state=present
+      with_items:
+        - xserver-xorg
+        - xserver-xorg-legacy
+        - xserver-xorg-input-libinput
+        - x11-xserver-utils
+        - xfonts-scalable
+        - xfonts-100dpi
+        - xfonts-75dpi
+        - xfonts-base
+        - xinit
+        - awesome
+        - midori
+
+    - name: allow all users to start X11
+      become: yes
+      lineinfile:
+        path: /etc/X11/Xwrapper.config
+        regexp: '^allowed_users='
+        line: 'allowed_users=anybody'
+
+    - name: place xinitrc
+      copy:
+        src: files/xinitrc
+        dest: "{{ ansible_env.HOME }}/.xinitrc"
+      notify:
+        - restart X11
+
+    - name: create .config/awesome dir
+      file:
+        path: "{{ ansible_env.HOME }}/.config/awesome/"
+        state: directory
+        recurse: yes
+
+    - name: copy awesome configs
+      copy:
+        src: "files/{{ item }}"
+        dest: "{{ ansible_env.HOME }}/.config/awesome/{{ item }}"
+      with_items:
+        - rc.lua
+        - theme.lua
+      notify:
+        - restart X11
+
+    - name: start X11 direclty with systemd
+      become: yes
+      copy:
+        src: files/xinit-login.service
+        dest: /lib/systemd/system/xinit-login.service
+      notify:
+        - restart X11
+
+    - name: enable and start systemd service
+      become: yes
+      systemd:
+        name: xinit-login
+        state: started
+        enabled: yes
+        masked: no
+        daemon_reload: yes
+
+  handlers:
+    - name: restart X11
+      become: yes
+      systemd:
+        name: xinit-login
+        state: restarted
+        daemon_reload: yes

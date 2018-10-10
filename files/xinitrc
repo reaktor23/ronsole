@@ -1,0 +1,8 @@
+# don't turn monitor off for power saving
+xset dpms 0 0 0
+xset -dpms
+xset s noblank
+xset s off
+
+# run awesome wm
+exec awesome

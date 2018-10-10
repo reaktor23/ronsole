@@ -1,0 +1,7 @@
+all:
+  hosts:
+    raspberrypi:
+  vars:
+    #ansible_host: 192.168.99.123
+    ansible_user: pi
+    ansible_become_method: sudo
