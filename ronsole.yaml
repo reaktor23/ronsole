@@ -16,6 +16,8 @@
           - xinit
           - awesome
           - midori
+          - chromium
+          - gmpc
         state: present
 
     - name: allow all users to start X11

@@ -133,10 +133,8 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "FOO", "BAR"}, s, awful.layout.suit.max)
-
-    -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons)
+    -- awful.tag({ "FOO", "MUSIC"}, s, awful.layout.suit.max)
+    awful.tag({ "FOO" }, s, awful.layout.suit.max)
 
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
@@ -147,27 +145,11 @@ awful.screen.connect_for_each_screen(function(s)
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
-        { -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
-            s.mytaglist,
-        },
-        s.mytasklist, -- Middle widget
-        { -- Right widgets
-            layout = wibox.layout.fixed.horizontal,
-            wibox.widget.systray(),
-            mytextclock,
-            s.mylayoutbox,
-        },
+        nil,
+        s.mytasklist,
+        mytextclock,
     }
 end)
--- }}}
-
--- {{{ Mouse bindings
-root.buttons(awful.util.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
-))
 -- }}}
 
 -- {{{ Key bindings
@@ -403,7 +385,7 @@ awful.rules.rules = {
 
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = true }
+      }, properties = { titlebars_enabled = false }
     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
@@ -483,4 +465,6 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 --
 
 --awful.util.spawn_with_shell("midori -e Fullscreen -a 'https://reaktor23.org/'")
-awful.util.spawn("midori -a 'https://reaktor23.org/'")
+--awful.util.spawn("midori -a 'https://reaktor23.org/'")
+awful.util.spawn("chromium --app='https://reaktor23.org/'")
+awful.util.spawn("gmpc")
