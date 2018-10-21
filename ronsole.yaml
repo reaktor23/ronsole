@@ -3,19 +3,20 @@
   tasks:
     - name: install require packages
       become: yes
-      apt: name={{item}} state=present
-      with_items:
-        - xserver-xorg
-        - xserver-xorg-legacy
-        - xserver-xorg-input-libinput
-        - x11-xserver-utils
-        - xfonts-scalable
-        - xfonts-100dpi
-        - xfonts-75dpi
-        - xfonts-base
-        - xinit
-        - awesome
-        - midori
+      apt:
+        name:
+          - xserver-xorg
+          - xserver-xorg-legacy
+          - xserver-xorg-input-libinput
+          - x11-xserver-utils
+          - xfonts-scalable
+          - xfonts-100dpi
+          - xfonts-75dpi
+          - xfonts-base
+          - xinit
+          - awesome
+          - midori
+        state: present
 
     - name: allow all users to start X11
       become: yes
