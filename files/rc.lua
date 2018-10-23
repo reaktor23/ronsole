@@ -454,6 +454,6 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 --awful.util.spawn_with_shell("midori -e Fullscreen -a 'https://reaktor23.org/'")
 --awful.util.spawn("midori -a 'https://reaktor23.org/'")
-awful.util.spawn("chromium-browser --app='http://actse:6680/moped/#/'")
-awful.util.spawn("chromium-browser --app='https://reaktor23.org'")
+awful.util.spawn("chromium-browser --touch-devices=8 --app='http://actse:6680/moped/#/'")
+awful.util.spawn("chromium-browser --touch-devices=8 --app='https://reaktor23.org'")
 --awful.util.spawn("gmpc")
