@@ -27,6 +27,20 @@
         regexp: '^allowed_users='
         line: 'allowed_users=anybody'
 
+    - name: create xorg.conf.d directory
+      become: yes
+      file:
+        path: /etc/X11/xorg.conf.d
+        state: directory
+
+    - name: create 99-calibration.conf
+      become: yes
+      copy:
+        src: files/99-calibration.conf
+        dest: "/etc/X11/xorg.conf.d/99-calibration.conf"
+      notify:
+        - restart X11
+
     - name: place xinitrc
       copy:
         src: files/xinitrc
