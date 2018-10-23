@@ -16,7 +16,7 @@
           - xinit
           - awesome
           - midori
-          - chromium
+          - chromium-browser
           - gmpc
         state: present
 

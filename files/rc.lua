@@ -90,20 +90,8 @@ local taglist_buttons = awful.util.table.join(
 
 local tasklist_buttons = awful.util.table.join(
                      awful.button({ }, 1, function (c)
-                                              if c == client.focus then
-                                                  c.minimized = true
-                                              else
-                                                  -- Without this, the following
-                                                  -- :isvisible() makes no sense
-                                                  c.minimized = false
-                                                  if not c:isvisible() and c.first_tag then
-                                                      c.first_tag:view_only()
-                                                  end
-                                                  -- This will also un-minimize
-                                                  -- the client, if needed
-                                                  client.focus = c
-                                                  c:raise()
-                                              end
+                                              client.focus = c
+                                              c:raise()
                                           end),
                      awful.button({ }, 3, client_menu_toggle_fn()),
                      awful.button({ }, 4, function ()
@@ -358,30 +346,30 @@ awful.rules.rules = {
     },
 
     -- Floating clients.
-    { rule_any = {
-        instance = {
-          "DTA",  -- Firefox addon DownThemAll.
-          "copyq",  -- Includes session name in class.
-        },
-        class = {
-          "Arandr",
-          "Gpick",
-          "Kruler",
-          "MessageWin",  -- kalarm.
-          "Sxiv",
-          "Wpa_gui",
-          "pinentry",
-          "veromix",
-          "xtightvncviewer"},
+    --{ rule_any = {
+    --    instance = {
+    --      "DTA",  -- Firefox addon DownThemAll.
+    --      "copyq",  -- Includes session name in class.
+    --    },
+    --    class = {
+    --      "Arandr",
+    --      "Gpick",
+    --      "Kruler",
+    --      "MessageWin",  -- kalarm.
+    --      "Sxiv",
+    --      "Wpa_gui",
+    --      "pinentry",
+    --      "veromix",
+    --      "xtightvncviewer"},
 
-        name = {
-          "Event Tester",  -- xev.
-        },
-        role = {
-          "AlarmWindow",  -- Thunderbird's calendar.
-          "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
-        }
-      }, properties = { floating = true }},
+    --    name = {
+    --      "Event Tester",  -- xev.
+    --    },
+    --    role = {
+    --      "AlarmWindow",  -- Thunderbird's calendar.
+    --      "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
+    --    }
+    --  }, properties = { floating = true }},
 
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
@@ -466,5 +454,6 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 --awful.util.spawn_with_shell("midori -e Fullscreen -a 'https://reaktor23.org/'")
 --awful.util.spawn("midori -a 'https://reaktor23.org/'")
-awful.util.spawn("chromium --app='https://reaktor23.org/'")
-awful.util.spawn("gmpc")
+awful.util.spawn("chromium-browser --app='http://actse:6680/moped/#/'")
+awful.util.spawn("chromium-browser --app='https://reaktor23.org'")
+--awful.util.spawn("gmpc")
