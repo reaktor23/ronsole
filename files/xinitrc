@@ -1,8 +1,17 @@
+#!/bin/bash
+
 # don't turn monitor off for power saving
 xset dpms 0 0 0
 xset -dpms
 xset s noblank
 xset s off
 
+# EloTouch id herausfiltern
+id=$(DISPLAY=:0 xinput list |grep -oEi "Elo.*id=([0-9])" |cut -d = -f 2)
+
+# awesome config patchen
+sed -i "s/chromium-browser --touch-devices=./chromium-browser --touch-devices=${id}/g" ~/.config/awesome/rc.lua
+
 # run awesome wm
 exec awesome
+
