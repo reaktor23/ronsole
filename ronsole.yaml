@@ -8,7 +8,9 @@
           - xserver-xorg
           - xserver-xorg-legacy
           - xserver-xorg-input-libinput
+          - xserver-xorg-video-fbturbo
           - x11-xserver-utils
+          - xinput-calibrator
           - xfonts-scalable
           - xfonts-100dpi
           - xfonts-75dpi
