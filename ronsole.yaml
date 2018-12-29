@@ -20,6 +20,7 @@
           - midori
           - chromium-browser
           - gmpc
+          - iok
         state: present
 
     - name: allow all users to start X11
