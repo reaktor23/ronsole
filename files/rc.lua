@@ -70,6 +70,8 @@ end
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock()
 
+mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon, command = "iok"  })
+
 -- Create a wibox for each screen and add it
 local taglist_buttons = awful.util.table.join(
                     awful.button({ }, 1, function(t) t:view_only() end),
@@ -133,7 +135,7 @@ awful.screen.connect_for_each_screen(function(s)
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
-        nil,
+        mylauncher,
         s.mytasklist,
         mytextclock,
     }
@@ -321,7 +323,7 @@ for i = 1, 9 do
 end
 
 clientbuttons = awful.util.table.join(
-    awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
+    --awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
     awful.button({ modkey }, 1, awful.mouse.client.move),
     awful.button({ modkey }, 3, awful.mouse.client.resize))
 
@@ -372,13 +374,17 @@ awful.rules.rules = {
     --  }, properties = { floating = true }},
 
     -- Add titlebars to normal clients and dialogs
-    { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = false }
-    },
+    --{ rule_any = {type = { "normal", "dialog" }
+    --  }, properties = { titlebars_enabled = false }
+    --},
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { screen = 1, tag = "2" } },
+    
+    { rule = { class = "Iok" },
+       properties = { titlebars_enabled = true }
+    },
 }
 -- }}}
 
@@ -440,12 +446,12 @@ client.connect_signal("request::titlebars", function(c)
 end)
 
 -- Enable sloppy focus, so that focus follows mouse.
-client.connect_signal("mouse::enter", function(c)
-    if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
-        and awful.client.focus.filter(c) then
-        client.focus = c
-    end
-end)
+--client.connect_signal("mouse::enter", function(c)
+--    if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
+--        and awful.client.focus.filter(c) then
+--        client.focus = c
+--    end
+--end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
@@ -454,6 +460,8 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 --awful.util.spawn_with_shell("midori -e Fullscreen -a 'https://reaktor23.org/'")
 --awful.util.spawn("midori -a 'https://reaktor23.org/'")
-awful.util.spawn("chromium-browser --touch-devices=8 --app='http://actse:6680/moped/#/'")
-awful.util.spawn("chromium-browser --touch-devices=8 --app='https://reaktor23.org'")
+awful.util.spawn("chromium-browser --touch-devices=6 'http://actse:6680/moped/#/'")
+awful.util.spawn("chromium-browser --touch-devices=6 --app='https://reaktor23.org'")
+awful.util.spawn("chromium-browser --touch-devices=6 --app='http://192.168.23.128'")
+--awful.util.spawn("florence", {floating  = true})
 --awful.util.spawn("gmpc")
