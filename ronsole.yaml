@@ -1,6 +1,11 @@
 ---
 - hosts: all
   tasks:
+    - name: set hostname
+      become: yes
+      hostname:
+        name: ronsole
+
     - name: install require packages
       become: yes
       apt:

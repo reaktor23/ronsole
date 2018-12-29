@@ -1,6 +1,6 @@
 all:
   hosts:
-    raspberrypi:
+    ronsole:
   vars:
     #ansible_host: 192.168.99.123
     ansible_user: pi
